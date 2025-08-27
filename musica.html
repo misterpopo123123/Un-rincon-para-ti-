@@ -6,163 +6,190 @@
   <title>El rincón para ti</title>
 <style>
 :root{
-  --bg:#808080;        /* Fondo gris */
-  --card:#1f1f1f;      /* Tarjetas oscuras */
-  --text:#fff;
-  --accent:#a64ca6;    /* Lila */
-  --muted:#bbb;        /* Texto tenue más claro sobre gris */
+  --page-bg: #808080;   /* fondo gris de la página */
+  --card-bg: #1f1f1f;
+  --text: #ffffff;
+  --accent: #a64ca6;
+  --muted: #bfbfbf;
 }
 
+/* Layout base y centrado */
 *{box-sizing:border-box}
-
 body{
   margin:0;
-  font-family: Arial, sans-serif;
-  background: var(--bg);
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--page-bg);
   color: var(--text);
+}
+.container{
+  max-width:1200px;
+  margin:0 auto;
   padding:20px;
   text-align:center;
 }
 
-h1{color: var(--accent); margin: 0 0 16px}
+/* Título */
+h1{ margin:0 0 18px; color:var(--accent); }
 
-.playlist{
-  display:grid;
-  grid-template-columns: repeat(6, 1fr); /* 6 por fila en desktop */
-  gap:12px;
-  margin-bottom:20px;
-  max-width: 1200px;
-  margin-left:auto;
-  margin-right:auto;
-}
-
-.card{
-  background: var(--card);
-  border-radius:10px;
-  padding:8px;
-  cursor:pointer;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  transition: transform .12s, box-shadow .12s;
-}
-.card:hover{
-  transform:translateY(-3px);
-  box-shadow: 0 6px 16px rgba(166,76,166,0.4);
-}
-.card img{
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  border-radius:8px;
-  background:#0a0a0a;
-}
-.card .title{
-  font-size:12px;
-  font-weight:700;
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
-  color:#fff;
-}
-
+/* Reproductor global (centrado) */
 .player-global{
   background: linear-gradient(180deg,#1b1b1b,#161616);
-  border-radius:14px;
-  padding:12px 14px;
+  border-radius:12px;
+  padding:12px;
   display:flex;
   gap:12px;
   align-items:center;
   justify-content:center;
   flex-wrap:wrap;
-  margin: 0 auto 20px;
-  max-width:980px;
-  border:1px solid rgba(255,255,255,.06);
+  margin:0 auto 20px;
+  max-width:1000px;
+  border:1px solid rgba(255,255,255,0.04);
 }
 .cover-small{
   width:64px; height:64px; border-radius:8px; object-fit:cover; background:#0a0a0a;
 }
-.meta{
-  flex:1; min-width:220px;
-  display:flex; flex-direction:column; align-items:flex-start;
-}
-.meta .title{font-weight:700;font-size:14px;max-width:520px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-.meta .artist{font-size:12px;color:var(--muted);}
-.controls{display:flex;gap:8px;align-items:center;margin-top:6px;}
-.btn{
-  width:36px;height:36px;border-radius:50%;border:none;background:var(--accent);
-  color:#000;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
-}
-.btn:active{transform:scale(.96);}
-.progress-wrap{display:flex;align-items:center;gap:8px;margin-top:6px;width:100%;}
-.time{font-size:12px;color:var(--muted);min-width:38px;text-align:center;}
-.progress-bar{
-  flex:1;height:6px;background:rgba(255,255,255,.18);
-  border-radius:6px;position:relative;cursor:pointer;overflow:hidden;
-}
-.progress-fill{
-  position:absolute;left:0;top:0;bottom:0;width:0%;
-  background:var(--accent);border-radius:6px;transition:width .08s linear;
+.meta{ flex:1; min-width:220px; display:flex; flex-direction:column; align-items:flex-start; }
+.meta .title{ font-weight:700; font-size:15px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; max-width:650px; }
+.meta .artist{ font-size:12px; color:var(--muted); }
+.controls{ display:flex; gap:8px; align-items:center; margin-top:8px; }
+.btn{ width:36px; height:36px; border-radius:50%; border:none; background:var(--accent); color:#000; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; }
+.btn:active{ transform:scale(.96); }
+.progress-wrap{ display:flex; align-items:center; gap:8px; margin-top:8px; width:100%; }
+.time{ font-size:12px; color:var(--muted); min-width:40px; text-align:center; }
+.progress-bar{ flex:1; height:6px; background: rgba(255,255,255,0.15); border-radius:6px; position:relative; cursor:pointer; overflow:hidden; }
+.progress-fill{ position:absolute; left:0; top:0; bottom:0; width:0%; background:var(--accent); border-radius:6px; transition:width .08s linear; }
+
+/* PLAYLIST: grilla centrada */
+.playlist{
+  display:grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 por fila en desktop */
+  gap:12px;
+  margin:0 auto 24px;
+  width:100%;
+  max-width:1200px;
+  justify-items:stretch;
 }
 
-/* Navegación inferior */
-.nav{margin-top:8px}
-.nav a{color: var(--accent); text-decoration:none; margin:0 10px;font-weight:700}
+/* tarjeta */
+.card{
+  background: var(--card-bg);
+  border-radius:10px;
+  padding:8px;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  transition: transform .12s, box-shadow .12s;
+  align-items:stretch;
+}
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow: 0 8px 20px rgba(166,76,166,0.2);
+}
 
-/* Foto */
-.profile{display:block;margin:20px auto;width:150px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.6);}
+/* thumbnail uniforme usando background-image (evita tamaños distintos) */
+.thumb{
+  width:100%;
+  padding-top:100%; /* cuadrado perfecto */
+  border-radius:8px;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-color:#0a0a0a;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+}
 
-/* Responsive */
-@media(max-width:1200px){.playlist{grid-template-columns:repeat(4,1fr);}}
-@media(max-width:768px){.playlist{grid-template-columns:repeat(3,1fr);} .meta{min-width:180px}}
-@media(max-width:480px){.playlist{grid-template-columns:repeat(2,1fr);} .cover-small{width:56px;height:56px}}
+/* título */
+.title{
+  font-size:12px;
+  font-weight:700;
+  color:var(--text);
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+}
+
+/* Centrar la última tarjeta: en desktop ocupa columnas 3-4 (centro) */
+/* y adaptamos para los puntos de quiebre */
+.playlist .card:last-child{
+  /* default for 6-cols: center across cols 3-4 */
+  grid-column: 3 / span 2;
+  justify-self: center;
+  max-width: 320px;
+}
+
+/* Table (<=1200px): 4 columns -> center across cols 2-3 */
+@media (max-width:1200px){
+  .playlist{ grid-template-columns: repeat(4,1fr); }
+  .playlist .card:last-child{ grid-column: 2 / span 2; max-width: 360px; }
+}
+
+/* Tablet (<=768px): 3 columns -> center column 2 */
+@media (max-width:768px){
+  .playlist{ grid-template-columns: repeat(3,1fr); }
+  .playlist .card:last-child{ grid-column: 2 / span 1; max-width: 320px; }
+}
+
+/* Mobile small (<=480px): 2 columns -> place centered and narrower */
+@media (max-width:480px){
+  .playlist{ grid-template-columns: repeat(2,1fr); gap:10px; }
+  .playlist .card:last-child{ grid-column: 1 / -1; justify-self:center; max-width: 70%; }
+}
+
+/* navegación y perfil */
+.nav{ margin-top:8px; text-align:center; }
+.nav a{ color:var(--accent); text-decoration:none; margin:0 8px; font-weight:700; }
+.profile{ display:block; margin:20px auto 40px; width:140px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.4); }
+
+/* asegura que imágenes de player se vean bien */
+.cover-small{ object-fit:cover; border-radius:8px; }
 </style>
 </head>
 <body>
+  <div class="container">
+    <h1>🎵 Mi Biblioteca Musical 🎵</h1>
 
-<h1>🎵 Mi Biblioteca Musical 🎵</h1>
+    <!-- Reproductor global -->
+    <div class="player-global" role="region" aria-label="Reproductor">
+      <img class="cover-small" id="playerCover" src="" alt="cover">
+      <div class="meta">
+        <div class="title" id="playerTitle">Selecciona una canción</div>
+        <div class="artist" id="playerArtist">—</div>
 
-<!-- Reproductor global -->
-<div class="player-global">
-  <img class="cover-small" id="playerCover" src="" alt="cover">
-  <div class="meta">
-    <div class="title" id="playerTitle">Selecciona una canción</div>
-    <div class="artist" id="playerArtist">—</div>
-    <div class="controls">
-      <button class="btn" id="prevBtn" title="Anterior">⏮️</button>
-      <button class="btn" id="playBtn" title="Reproducir / Pausar">▶️</button>
-      <button class="btn" id="nextBtn" title="Siguiente">⏭️</button>
-    </div>
-    <div class="progress-wrap">
-      <div class="time" id="timeCurrent">0:00</div>
-      <div class="progress-bar" id="progressBar">
-        <div class="progress-fill" id="progressFill"></div>
+        <div class="controls" role="group" aria-label="Controles">
+          <button class="btn" id="prevBtn" title="Anterior">⏮️</button>
+          <button class="btn" id="playBtn" title="Reproducir">▶️</button>
+          <button class="btn" id="nextBtn" title="Siguiente">⏭️</button>
+        </div>
+
+        <div class="progress-wrap" aria-hidden="false">
+          <div class="time" id="timeCurrent">0:00</div>
+          <div class="progress-bar" id="progressBar" title="Click para saltar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="time" id="timeTotal">0:00</div>
+        </div>
       </div>
-      <div class="time" id="timeTotal">0:00</div>
     </div>
+
+    <!-- Playlist -->
+    <div class="playlist" id="playlist" role="list" aria-label="Lista de canciones"></div>
+
+    <div class="nav">
+      <a href="index.html">inicio</a>
+      <a href="frases.html">Lo que no te puedo decir</a>
+      <a href="musica.html">Lista de Musica</a>
+      <a href="desarrollador.html">Desarrollador</a>
+    </div>
+
+    <img class="profile" src="si.jpg" alt="juan">
+    <audio id="audio" preload="metadata"></audio>
   </div>
-</div>
-
-<!-- Grilla de canciones -->
-<div class="playlist" id="playlist"></div>
-
-<!-- Navegación -->
-<div class="nav">
-  <a href="index.html">inicio</a>
-  <a href="frases.html">Lo que no te puedo decir</a>
-  <a href="musica.html">Lista de Musica</a>
-  <a href="desarrollador.html">Desarrollador</a>
-</div>
-
-<!-- Foto -->
-<img class="profile" src="si.jpg" alt="juan">
-
-<!-- Único elemento de audio (sin controles nativos) -->
-<audio id="audio" preload="metadata"></audio>
 
 <script>
-/* === Lista: NO tocamos tus rutas === */
-const canciones=[
+/* ====== Lista (no toqué tus rutas) ====== */
+const canciones = [
   {titulo:"Golden Hour - JVKE",                 img:"imagenes/golden hour.jpeg",            src:"musica/golden-hour.mp3.mp3.mp3"},
   {titulo:"do-i-wanna - Arctic Monkeys",        img:"imagenes/artic-monkeys.jpeg",          src:"musica/doiwannaknow.mp3.mp3.mp3"},
   {titulo:"I Wanna Be Yours - Arctic Monkeys",  img:"imagenes/artic-monkeys.jpeg",          src:"musica/arctic.mp3.mp3.mp3"},
@@ -173,51 +200,60 @@ const canciones=[
   {titulo:"Feliz me siento",                    img:"imagenes/feliz me siento.jpeg",        src:"musica/feliz-me-siento.mp3"},
   {titulo:"Quiero morir en tu piel",            img:"imagenes/quiero morir en tu piel.jpeg",src:"musica/quiero-morir-en-tu-piel.mp3"},
   {titulo:"Dónde nadie puede ir",               img:"imagenes/donde nadie puede ir.jpeg",   src:"musica/donde-nadie-puede-ir.mp3"},
-  {titulo:"Bésame",                              img:"imagenes/besame.jpeg",                 src:"musica/Besame.mp3"},
+  {titulo:"Bésame",                             img:"imagenes/besame.jpeg",                 src:"musica/Besame.mp3"},
   {titulo:"Congratulations",                    img:"imagenes/Congratulations.jpeg",        src:"musica/creeping.mp3.mp3.mp3"},
-  {titulo:"Ansiedades",                          img:"imagenes/ansiedades.jpeg",             src:"musica/ansiedades.mp3"}
+  {titulo:"Ansiedades",                         img:"imagenes/ansiedades.jpeg",             src:"musica/ansiedades.mp3"}
 ];
+/* ======================================== */
 
 const $ = id => document.getElementById(id);
-const playlistEl   = $('playlist');
-const playerCover  = $('playerCover');
-const playerTitle  = $('playerTitle');
+const playlistEl = $('playlist');
+const playerCover = $('playerCover');
+const playerTitle = $('playerTitle');
 const playerArtist = $('playerArtist');
-const playBtn      = $('playBtn');
-const prevBtn      = $('prevBtn');
-const nextBtn      = $('nextBtn');
-const progressBar  = $('progressBar');
+const playBtn = $('playBtn');
+const prevBtn = $('prevBtn');
+const nextBtn = $('nextBtn');
+const progressBar = $('progressBar');
 const progressFill = $('progressFill');
-const timeCurrent  = $('timeCurrent');
-const timeTotal    = $('timeTotal');
-const audio        = $('audio');
+const timeCurrent = $('timeCurrent');
+const timeTotal = $('timeTotal');
+const audio = $('audio');
 
-let currentIndex = 0; // cargamos la primera pista (sin autoplay)
+let currentIndex = 0;
 
-/* Formatea mm:ss */
+/* formatea tiempo mm:ss */
 function fmtTime(sec){
   if(!isFinite(sec)) return '0:00';
-  const s = Math.floor(sec % 60);
-  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60), m = Math.floor(sec / 60);
   return `${m}:${s.toString().padStart(2,'0')}`;
 }
 
-/* Render de tarjetas */
+/* Renderiza tarjetas usando background-image en .thumb para uniformidad */
 function renderList(){
-  playlistEl.innerHTML='';
-  canciones.forEach((c,i)=>{
-    const card=document.createElement('div');
-    card.className='card';
-    card.innerHTML = `
-      <img src="${encodeURI(c.img)}" alt="${c.titulo}">
-      <div class="title" title="${c.titulo}">${c.titulo}</div>
-    `;
-    card.addEventListener('click',()=> loadAndPlay(i));
+  playlistEl.innerHTML = '';
+  canciones.forEach((c,i) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    // thumb div con background-image — garantiza tamaños iguales
+    const thumb = document.createElement('div');
+    thumb.className = 'thumb';
+    thumb.style.backgroundImage = `url("${encodeURI(c.img)}")`;
+    thumb.setAttribute('role','img');
+    thumb.setAttribute('aria-label', c.titulo);
+
+    const title = document.createElement('div');
+    title.className = 'title';
+    title.textContent = c.titulo;
+
+    card.appendChild(thumb);
+    card.appendChild(title);
+    card.addEventListener('click', () => loadAndPlay(i));
     playlistEl.appendChild(card);
   });
 }
 
-/* Carga EN EL PLAYER (no reproduce) */
+/* Carga pista en el player (sin reproducir) */
 function setTrack(index){
   const c = canciones[index];
   if(!c) return;
@@ -226,70 +262,72 @@ function setTrack(index){
   playerArtist.textContent = c.src.split('/').pop();
   playerCover.src = encodeURI(c.img);
   audio.src = encodeURI(c.src);
-  audio.load(); // carga metadata
+  audio.load();
 }
 
-/* Carga y reproduce (tras click del usuario) */
+/* Carga + reproduce (user action) */
 async function loadAndPlay(index){
   setTrack(index);
   try{
     await audio.play();
-    playBtn.textContent='⏸️';
-  }catch(e){
-    console.warn('Bloqueado por el navegador hasta interacción del usuario:', e);
+    playBtn.textContent = '⏸️';
+  }catch(err){
+    console.warn('play blocked until user gesture or file missing', err);
   }
 }
 
-/* Controles */
-playBtn.addEventListener('click', async ()=>{
+/* controles */
+playBtn.addEventListener('click', async () => {
+  if(!audio.src){
+    // si no hay pista cargada, carga primera pero no forzamos autoplay
+    setTrack(0);
+    return;
+  }
   if(audio.paused){
-    try{ await audio.play(); playBtn.textContent='⏸️'; }
-    catch(e){ console.warn(e); }
-  }else{
+    try{ await audio.play(); playBtn.textContent='⏸️'; } catch(e){ console.warn(e); }
+  } else {
     audio.pause(); playBtn.textContent='▶️';
   }
 });
-prevBtn.addEventListener('click', ()=> {
-  const i = (currentIndex-1+ canciones.length) % canciones.length;
+prevBtn.addEventListener('click', () => {
+  const i = (currentIndex - 1 + canciones.length) % canciones.length;
   loadAndPlay(i);
 });
-nextBtn.addEventListener('click', ()=> {
-  const i = (currentIndex+1) % canciones.length;
+nextBtn.addEventListener('click', () => {
+  const i = (currentIndex + 1) % canciones.length;
   loadAndPlay(i);
 });
 
-/* Progreso */
-audio.addEventListener('timeupdate', ()=>{
+/* progreso */
+audio.addEventListener('timeupdate', () => {
   if(audio.duration){
-    const pct = (audio.currentTime/audio.duration)*100;
-    progressFill.style.width = pct+'%';
-    timeCurrent.textContent  = fmtTime(audio.currentTime);
-    timeTotal.textContent    = fmtTime(audio.duration);
+    const pct = (audio.currentTime / audio.duration) * 100;
+    progressFill.style.width = pct + '%';
+    timeCurrent.textContent = fmtTime(audio.currentTime);
+    timeTotal.textContent = fmtTime(audio.duration);
   }
 });
-audio.addEventListener('loadedmetadata', ()=>{
+audio.addEventListener('loadedmetadata', () => {
   timeTotal.textContent = fmtTime(audio.duration);
 });
-audio.addEventListener('ended', ()=>{
-  playBtn.textContent='▶️';
-  // Autonext
-  const i = (currentIndex+1) % canciones.length;
-  setTrack(i);            // prepara la siguiente
-  // No auto-play para evitar bloqueos; el usuario puede dar play
+audio.addEventListener('ended', () => {
+  playBtn.textContent = '▶️';
+  // auto-next but keep player ready
+  const i = (currentIndex + 1) % canciones.length;
+  setTrack(i);
 });
 
-progressBar.addEventListener('click', (e)=>{
+/* click en barra para saltar */
+progressBar.addEventListener('click', (e) => {
   if(!audio.duration) return;
   const rect = progressBar.getBoundingClientRect();
-  const pct  = (e.clientX - rect.left) / rect.width;
+  const pct = (e.clientX - rect.left) / rect.width;
   audio.currentTime = pct * audio.duration;
 });
 
-/* Inicialización */
+/* INIT */
 renderList();
-setTrack(currentIndex); // muestra la primera pista sin reproducir
+setTrack(currentIndex);
 </script>
-
 </body>
 </html>
-
