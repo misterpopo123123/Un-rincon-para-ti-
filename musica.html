@@ -6,7 +6,7 @@
 <title>El rincón para ti — Player tipo Spotify</title>
 <style>
 :root{
-  --bg:#808080; /* Fondo gris */
+  --bg:#121212;
   --card:#1f1f1f;
   --text:#fff;
   --accent:#a64ca6;
@@ -23,7 +23,7 @@ body{
 h1{color: var(--accent);}
 .playlist{
   display:grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(6, 1fr); /* 6 canciones por fila */
   gap:12px;
   margin-bottom:20px;
 }
@@ -212,8 +212,10 @@ playBtn.addEventListener('click',async()=>{
   if(audio.paused){await audio.play();playBtn.textContent='⏸️';}
   else{audio.pause();playBtn.textContent='▶️';}
 });
+
 prevBtn.addEventListener('click',()=>{if(currentIndex>0)loadAndPlay(currentIndex-1);});
 nextBtn.addEventListener('click',()=>{if(currentIndex<canciones.length-1)loadAndPlay(currentIndex+1);});
+
 audio.addEventListener('timeupdate',()=>{
   if(audio.duration){
     const pct=(audio.currentTime/audio.duration)*100;
@@ -227,6 +229,7 @@ audio.addEventListener('ended',()=>{
   if(currentIndex<canciones.length-1)loadAndPlay(currentIndex+1);
   else{progressFill.style.width='0%';timeCurrent.textContent='0:00';}
 });
+
 progressBar.addEventListener('click',(e)=>{
   if(!audio.duration) return;
   const rect=progressBar.getBoundingClientRect();
