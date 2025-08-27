@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>El rincón para ti — Player tipo Spotify</title>
+<title>El rincón para ti — Player único</title>
 <style>
 :root{
   --bg:#121212;
@@ -17,47 +17,35 @@ body{
   font-family: Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
-  padding:20px;
-  text-align:center;
+  padding: 20px;
+  text-align: center;
 }
 h1{color: var(--accent);}
 .playlist{
   display:grid;
-  grid-template-columns: repeat(6, 1fr); /* 6 canciones por fila */
+  grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
   gap:12px;
   margin-bottom:20px;
 }
 .card{
   background: var(--card);
   border-radius:8px;
-  padding:6px;
+  padding:8px;
   cursor:pointer;
   display:flex;
   flex-direction:column;
-  gap:4px;
-  transition: transform .12s, box-shadow .12s;
+  gap:6px;
+  transition: transform .12s;
 }
-.card:hover{
-  transform:translateY(-3px);
-  box-shadow: 0 4px 12px rgba(166,76,166,0.5);
-}
+.card:hover{transform:translateY(-3px);}
 .card img{
   width:100%;
   aspect-ratio:1/1;
   object-fit:cover;
   border-radius:6px;
 }
-.card .title{
-  font-size:12px;
-  font-weight:700;
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
-}
-.card .artist{
-  font-size:11px;
-  color: var(--muted);
-}
+.card .title{font-size:13px;font-weight:700;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.card .meta-small{font-size:12px;color: var(--muted);}
 
 .player-global{
   background: linear-gradient(180deg,#191919,#161616);
@@ -104,11 +92,8 @@ h1{color: var(--accent);}
 .nav{margin-top:20px;}
 .nav a{color: var(--accent); text-decoration:none; margin:0 8px;font-weight:700;}
 .profile{display:block;margin:20px auto;width:150px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.6);}
-
-/* Adaptación móvil */
-@media(max-width:1200px){.playlist{grid-template-columns:repeat(4,1fr);}}
-@media(max-width:768px){.playlist{grid-template-columns:repeat(3,1fr);}}
-@media(max-width:480px){.playlist{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:768px){.playlist{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.playlist{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -121,7 +106,7 @@ h1{color: var(--accent);}
     <div class="title" id="playerTitle">Selecciona una canción</div>
     <div class="artist" id="playerArtist">—</div>
     <div class="controls">
-      <button class="btn" id="prevBtn">⏮️</button
+      <button class="btn" id="prevBtn">⏮️</button>
       <button class="btn" id="playBtn">▶️</button>
       <button class="btn" id="nextBtn">⏭️</button>
     </div>
@@ -161,8 +146,9 @@ const canciones=[
   {titulo:"Quiero morir en tu piel", img:"imagenes/quiero morir en tu piel.jpeg", src:"musica/quiero-morir-en-tu-piel.mp3"},
   {titulo:"Dónde nadie puede ir", img:"imagenes/donde nadie puede ir.jpeg", src:"musica/donde-nadie-puede-ir.mp3"},
   {titulo:"Bésame", img:"imagenes/besame.jpeg", src:"musica/Besame.mp3"},
-  {titulo:"Congratulations", img:"imagenes/congratulations.jpeg", src:"musica/creeping.mp3.mp3.mp3"}
-   ];
+    {titulo:"Congratulations", img:"imagenes/Congratulations.jpeg", src:"musica/creeping.mp3.mp3.mp3"}
+  {titulo:"Congratulations", img:"imagenes/ansiedades.jpeg", src:"musica/ansiedades.mp3"}
+];
 
 const playlistEl=document.getElementById('playlist');
 const playerCover=document.getElementById('playerCover');
@@ -241,6 +227,4 @@ renderList();
 </script>
 
 </body>
-
 </html>
-
