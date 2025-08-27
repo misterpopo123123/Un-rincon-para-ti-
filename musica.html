@@ -23,7 +23,7 @@ body{
 h1{color: var(--accent);}
 .playlist{
   display:grid;
-  grid-template-columns: repeat(6, 1fr); /* 6 canciones por fila en desktop */
+  grid-template-columns: repeat(6, 1fr);
   gap:12px;
   margin-bottom:20px;
 }
@@ -208,4 +208,34 @@ async function loadAndPlay(index){
   try{await audio.play();playBtn.textContent='⏸️';}catch(e){console.warn(e);}
 }
 
-play
+playBtn.addEventListener('click',async()=>{
+  if(audio.paused){await audio.play();playBtn.textContent='⏸️';}
+  else{audio.pause();playBtn.textContent='▶️';}
+});
+prevBtn.addEventListener('click',()=>{if(currentIndex>0)loadAndPlay(currentIndex-1);});
+nextBtn.addEventListener('click',()=>{if(currentIndex<canciones.length-1)loadAndPlay(currentIndex+1);});
+audio.addEventListener('timeupdate',()=>{
+  if(audio.duration){
+    const pct=(audio.currentTime/audio.duration)*100;
+    progressFill.style.width=pct+'%';
+    timeCurrent.textContent=fmtTime(audio.currentTime);
+    timeTotal.textContent=fmtTime(audio.duration);
+  }
+});
+audio.addEventListener('ended',()=>{
+  playBtn.textContent='▶️';
+  if(currentIndex<canciones.length-1)loadAndPlay(currentIndex+1);
+  else{progressFill.style.width='0%';timeCurrent.textContent='0:00';}
+});
+progressBar.addEventListener('click',(e)=>{
+  if(!audio.duration) return;
+  const rect=progressBar.getBoundingClientRect();
+  const pct=(e.clientX-rect.left)/rect.width;
+  audio.currentTime=pct*audio.duration;
+});
+
+renderList();
+</script>
+
+</body>
+</html>
