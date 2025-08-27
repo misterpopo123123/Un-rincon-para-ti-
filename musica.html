@@ -165,7 +165,7 @@ const canciones=[
   {titulo:"Quiero morir en tu piel", img:"imagenes/quiero morir en tu piel.jpeg", src:"musica/quiero-morir-en-tu-piel.mp3"},
   {titulo:"Dónde nadie puede ir", img:"imagenes/donde nadie puede ir.jpeg", src:"musica/donde-nadie-puede-ir.mp3"},
   {titulo:"Bésame", img:"imagenes/besame.jpeg", src:"musica/Besame.mp3"},
-  {titulo:"Congratulations", img:"imagenes/congratulations.jpeg", src:"musica/creeping.mp3.mp3.mp3"}
+  {titulo:"Congratulations", img:"imagenes/donde nadie puede ir.jpeg", src:"musica/creeping.mp3.mp3.mp3"}
 ];
 
 const playlistEl=document.getElementById('playlist');
@@ -212,76 +212,10 @@ async function loadAndPlay(index){
   try{await audio.play();playBtn.textContent='⏸️';}catch(e){console.warn(e);}
 }
 
-<<<<<<< HEAD
 playBtn.addEventListener('click',async()=>{
   if(audio.paused){await audio.play();playBtn.textContent='⏸️';}
   else{audio.pause();playBtn.textContent='▶️';}
 });
-=======
-	 <div class="cancion">
-    <h2>feliz me siento</h2>
-    <img src="imagenes/feliz me siento.jpeg" alt="feliz me siento">
-    <audio controls>
-      <source src="musica/feliz-me-siento.mp3" type="audio/mpeg">
-      Tu navegador no soporta el elemento de audio.
-    </audio>
-  </div>	
-
-	<div class="cancion">
-    <h2>quiero morir en tu piel</h2>
-    <img src="imagenes/quiero morir en tu piel.jpeg" alt="feliz me siento">
-    <audio controls>
-      <source src="musica/quiero-morir-en-tu-piel.mp3" type="audio/mpeg">
-      Tu navegador no soporta el elemento de audio.
-    </audio>
-  </div>
-
-		<div class="cancion">
-    <h2>Donde nadie puede ir</h2>
-    <img src="imagenes/donde nadie puede ir.jpeg" alt="feliz me siento">
-    <audio controls>
-      <source src="musica/donde-nadie-puede-ir.mp3" type="audio/mpeg">
-      Tu navegador no soporta el elemento de audio.
-    </audio>
-  </div>
-
-		<div class="cancion">
-    <h2>Besame</h2>
-    <img src="imagenes/besame.jpeg" alt="feliz me siento">
-    <audio controls>
-      <source src="musica/Besame.mp3" type="audio/mpeg">
-      Tu navegador no soporta el elemento de audio.
-    </audio>
-  </div>
-
-		<div class="cancion">
-    <h2>Congratulations</h2>
-    <img src="imagenes/congratulations.jpeg" alt="feliz me siento">
-    <audio controls>
-      <source src="musica/creeping.mp3.mp3.mp3" type="audio/mpeg">
-      Tu navegador no soporta el elemento de audio.
-    </audio>
-  </div>
-
-	<div class="cancion">
-    <h2>Ansiedades</h2>
-    <img src="imagenes/ansiedades.jpeg" alt="feliz me siento">
-    <audio controls>
-      <source src="musica/ansiedades.mp3" type="audio/mpeg">
-      Tu navegador no soporta el elemento de audio.
-    </audio>
-  </div>
-
-
-  <ul>
-         <li><a href="index.html">inicio</a> </li>
-         <li><a href="frases.html">Lo que no te puedo decir</a> </li>
-         <li><a href="musica.html">Lista de Musica</a> </li>
-         <li><a href="desarrollador.html" >Desarrollador</a> </li>
-  </ul>
-  </nav>
- </header>
->>>>>>> ed897537b06957d3c073407dedcb5d19b3e32ca1
 
 prevBtn.addEventListener('click',()=>{if(currentIndex>0)loadAndPlay(currentIndex-1);});
 nextBtn.addEventListener('click',()=>{if(currentIndex<canciones.length-1)loadAndPlay(currentIndex+1);});
@@ -310,16 +244,5 @@ progressBar.addEventListener('click',(e)=>{
 renderList();
 </script>
 
-<<<<<<< HEAD
 </body>
 </html>
-=======
-
-
-
-
-
-
-
-
->>>>>>> ed897537b06957d3c073407dedcb5d19b3e32ca1
