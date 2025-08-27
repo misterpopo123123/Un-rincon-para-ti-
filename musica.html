@@ -140,4 +140,72 @@ h1{color: var(--accent);}
 <div class="nav">
   <a href="index.html">inicio</a>
   <a href="frases.html">Lo que no te puedo decir</a>
-  <a href="musica.html">Lista de Mus
+  <a href="musica.html">Lista de Musica</a>
+  <a href="desarrollador.html">Desarrollador</a>
+</div>
+
+<img class="profile" src="si.jpg" alt="juan">
+
+<audio id="audio" preload="metadata"></audio>
+
+<script>
+const canciones=[
+  {titulo:"Golden Hour - JVKE", img:"imagenes/golden hour.jpeg", src:"musica/golden-hour.mp3.mp3.mp3"},
+  {titulo:"do-i-wanna - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/doiwannaknow.mp3.mp3.mp3"},
+  {titulo:"I Wanna Be Yours - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/arctic.mp3.mp3.mp3"},
+  {titulo:"Hummingbird - Metro Boomin", img:"imagenes/metro-boomin.jpeg", src:"musica/Hummingbird.mp3.mp3.mp3"},
+  {titulo:"No. 1 Party Anthem - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/arctic.mp3.mp3 (2).mp3"},
+  {titulo:"Feel It - d4vd", img:"imagenes/feel it.jpeg", src:"musica/feelit.mp3.mp3"},
+  {titulo:"Sabor a mi - Luis Miguel", img:"imagenes/sabor a ti.jpeg", src:"musica/sabor-a-mi.mp3"},
+  {titulo:"Feliz me siento", img:"imagenes/feliz me siento.jpeg", src:"musica/feliz-me-siento.mp3"},
+  {titulo:"Quiero morir en tu piel", img:"imagenes/quiero morir en tu piel.jpeg", src:"musica/quiero-morir-en-tu-piel.mp3"},
+  {titulo:"Dónde nadie puede ir", img:"imagenes/donde nadie puede ir.jpeg", src:"musica/donde-nadie-puede-ir.mp3"},
+  {titulo:"Bésame", img:"imagenes/besame.jpeg", src:"musica/Besame.mp3"},
+  {titulo:"Congratulations", img:"imagenes/donde nadie puede ir.jpeg", src:"musica/creeping.mp3.mp3.mp3"}
+];
+
+const playlistEl=document.getElementById('playlist');
+const playerCover=document.getElementById('playerCover');
+const playerTitle=document.getElementById('playerTitle');
+const playerArtist=document.getElementById('playerArtist');
+const playBtn=document.getElementById('playBtn');
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
+const progressBar=document.getElementById('progressBar');
+const progressFill=document.getElementById('progressFill');
+const timeCurrent=document.getElementById('timeCurrent');
+const timeTotal=document.getElementById('timeTotal');
+const audio=document.getElementById('audio');
+
+let currentIndex=-1;
+
+function fmtTime(sec){
+  if(!isFinite(sec)) return '0:00';
+  const s=Math.floor(sec%60), m=Math.floor(sec/60);
+  return `${m}:${s.toString().padStart(2,'0')}`;
+}
+
+function renderList(){
+  playlistEl.innerHTML='';
+  canciones.forEach((c,i)=>{
+    const card=document.createElement('div');
+    card.className='card';
+    card.innerHTML=`<img src="${encodeURI(c.img)}" alt="${c.titulo}"><div class="title">${c.titulo}</div>`;
+    card.addEventListener('click',()=>loadAndPlay(i));
+    playlistEl.appendChild(card);
+  });
+}
+
+async function loadAndPlay(index){
+  const c=canciones[index];
+  if(!c) return;
+  currentIndex=index;
+  playerTitle.textContent=c.titulo;
+  playerArtist.textContent=c.src.split('/').pop();
+  playerCover.src=encodeURI(c.img);
+  audio.src=encodeURI(c.src);
+  audio.load();
+  try{await audio.play();playBtn.textContent='⏸️';}catch(e){console.warn(e);}
+}
+
+play
