@@ -1,19 +1,21 @@
-<!DOCTYPE html> <html> 
-  <head> <meta charset="utf-8"> 
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <meta charset="utf-8"> 
   <meta name="viewport" content="width=device-width"> 
   <meta name="keywords" content="pagina de lisa 02123"> 
   <meta name="author" content="juan barrerra"> 
   <title>El rincón para ti</title>
 <style>
 :root{
-  --page-bg: #808080;   /* fondo gris de la página */
+  --page-bg: #808080;
   --card-bg: #1f1f1f;
   --text: #ffffff;
   --accent: #a64ca6;
   --muted: #bfbfbf;
 }
 
-/* Layout base y centrado */
+/* Layout base */
 *{box-sizing:border-box}
 body{
   margin:0;
@@ -31,7 +33,7 @@ body{
 /* Título */
 h1{ margin:0 0 18px; color:var(--accent); }
 
-/* Reproductor global (centrado) */
+/* Reproductor */
 .player-global{
   background: linear-gradient(180deg,#1b1b1b,#161616);
   border-radius:12px;
@@ -59,10 +61,10 @@ h1{ margin:0 0 18px; color:var(--accent); }
 .progress-bar{ flex:1; height:6px; background: rgba(255,255,255,0.15); border-radius:6px; position:relative; cursor:pointer; overflow:hidden; }
 .progress-fill{ position:absolute; left:0; top:0; bottom:0; width:0%; background:var(--accent); border-radius:6px; transition:width .08s linear; }
 
-/* PLAYLIST: grilla centrada */
+/* Playlist grid */
 .playlist{
   display:grid;
-  grid-template-columns: repeat(6, 1fr); /* 6 por fila en desktop */
+  grid-template-columns: repeat(6, 1fr);
   gap:12px;
   margin:0 auto 24px;
   width:100%;
@@ -70,7 +72,7 @@ h1{ margin:0 0 18px; color:var(--accent); }
   justify-items:stretch;
 }
 
-/* tarjeta */
+/* Tarjetas */
 .card{
   background: var(--card-bg);
   border-radius:10px;
@@ -78,23 +80,25 @@ h1{ margin:0 0 18px; color:var(--accent); }
   cursor:pointer;
   display:flex;
   flex-direction:column;
+  justify-content:space-between;
   gap:8px;
   transition: transform .12s, box-shadow .12s;
   align-items:stretch;
+  min-height:180px; /* altura uniforme */
 }
 .card:hover{
   transform:translateY(-3px);
   box-shadow: 0 8px 20px rgba(166,76,166,0.2);
 }
 
-/* thumbnail uniforme usando background-image (evita tamaños distintos) */
+/* Thumbnails cuadrados uniformes */
 .thumb{
   width:100%;
-  padding-top:100%; /* cuadrado perfecto */
+  aspect-ratio: 1 / 1;      /* cuadrado perfecto */
   border-radius:8px;
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
+  background-size: cover;   /* ajusta imagen sin deformar */
+  background-position: center;
+  background-repeat: no-repeat;
   background-color:#0a0a0a;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
 }
@@ -110,40 +114,31 @@ h1{ margin:0 0 18px; color:var(--accent); }
   -webkit-box-orient:vertical;
 }
 
-/* Centrar la última tarjeta: en desktop ocupa columnas 3-4 (centro) */
-/* y adaptamos para los puntos de quiebre */
+/* Centrar la última tarjeta */
 .playlist .card:last-child{
-  /* default for 6-cols: center across cols 3-4 */
   grid-column: 3 / span 2;
   justify-self: center;
   max-width: 320px;
 }
 
-/* Table (<=1200px): 4 columns -> center across cols 2-3 */
+/* Media queries */
 @media (max-width:1200px){
   .playlist{ grid-template-columns: repeat(4,1fr); }
   .playlist .card:last-child{ grid-column: 2 / span 2; max-width: 360px; }
 }
-
-/* Tablet (<=768px): 3 columns -> center column 2 */
 @media (max-width:768px){
   .playlist{ grid-template-columns: repeat(3,1fr); }
   .playlist .card:last-child{ grid-column: 2 / span 1; max-width: 320px; }
 }
-
-/* Mobile small (<=480px): 2 columns -> place centered and narrower */
 @media (max-width:480px){
   .playlist{ grid-template-columns: repeat(2,1fr); gap:10px; }
-  .playlist .card:last-child{ grid-column: 1 / -1; justify-self:center; max-width: 70%; }
+  .playlist .card:last-child{ grid-column: 1 / -1; justify-self:center; max-width: 90%; }
 }
 
 /* navegación y perfil */
 .nav{ margin-top:8px; text-align:center; }
 .nav a{ color:var(--accent); text-decoration:none; margin:0 8px; font-weight:700; }
 .profile{ display:block; margin:20px auto 40px; width:140px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.4); }
-
-/* asegura que imágenes de player se vean bien */
-.cover-small{ object-fit:cover; border-radius:8px; }
 </style>
 </head>
 <body>
@@ -158,12 +153,12 @@ h1{ margin:0 0 18px; color:var(--accent); }
         <div class="artist" id="playerArtist">—</div>
 
         <div class="controls" role="group" aria-label="Controles">
-          <button class="btn" id="prevBtn" title="Anterior">⏮️</button>
-          <button class="btn" id="playBtn" title="Reproducir">▶️</button>
-          <button class="btn" id="nextBtn" title="Siguiente">⏭️</button>
+          <button class="btn" id="prevBtn" title="Anterior" aria-label="Anterior">⏮️</button>
+          <button class="btn" id="playBtn" title="Reproducir" aria-label="Reproducir">▶️</button>
+          <button class="btn" id="nextBtn" title="Siguiente" aria-label="Siguiente">⏭️</button>
         </div>
 
-        <div class="progress-wrap" aria-hidden="false">
+        <div class="progress-wrap">
           <div class="time" id="timeCurrent">0:00</div>
           <div class="progress-bar" id="progressBar" title="Click para saltar">
             <div class="progress-fill" id="progressFill"></div>
@@ -188,23 +183,22 @@ h1{ margin:0 0 18px; color:var(--accent); }
   </div>
 
 <script>
-/* ====== Lista (no toqué tus rutas) ====== */
+/* ====== Lista ====== */
 const canciones = [
-  {titulo:"Golden Hour - JVKE",                 img:"imagenes/golden hour.jpeg",            src:"musica/golden-hour.mp3.mp3.mp3"},
-  {titulo:"do-i-wanna - Arctic Monkeys",        img:"imagenes/artic-monkeys.jpeg",          src:"musica/doiwannaknow.mp3.mp3.mp3"},
-  {titulo:"I Wanna Be Yours - Arctic Monkeys",  img:"imagenes/artic-monkeys.jpeg",          src:"musica/arctic.mp3.mp3.mp3"},
-  {titulo:"Hummingbird - Metro Boomin",         img:"imagenes/metro-boomin.jpeg",           src:"musica/Hummingbird.mp3.mp3.mp3"},
-  {titulo:"No. 1 Party Anthem - Arctic Monkeys",img:"imagenes/artic-monkeys.jpeg",          src:"musica/arctic.mp3.mp3 (2).mp3"},
-  {titulo:"Feel It - d4vd",                     img:"imagenes/feel it.jpeg",                src:"musica/feelit.mp3.mp3"},
-  {titulo:"Sabor a mi - Luis Miguel",           img:"imagenes/sabor a ti.jpeg",             src:"musica/sabor-a-mi.mp3"},
-  {titulo:"Feliz me siento",                    img:"imagenes/feliz me siento.jpeg",        src:"musica/feliz-me-siento.mp3"},
-  {titulo:"Quiero morir en tu piel",            img:"imagenes/quiero morir en tu piel.jpeg",src:"musica/quiero-morir-en-tu-piel.mp3"},
-  {titulo:"Dónde nadie puede ir",               img:"imagenes/donde nadie puede ir.jpeg",   src:"musica/donde-nadie-puede-ir.mp3"},
-  {titulo:"Bésame",                             img:"imagenes/besame.jpeg",                 src:"musica/Besame.mp3"},
-  {titulo:"Congratulations",                    img:"imagenes/Congratulations.jpeg",        src:"musica/creeping.mp3.mp3.mp3"},
-  {titulo:"Ansiedades",                         img:"imagenes/ansiedades.jpeg",             src:"musica/ansiedades.mp3"}
+  {titulo:"Golden Hour", artista:"JVKE", img:"imagenes/golden hour.jpeg", src:"musica/golden-hour.mp3.mp3.mp3"},
+  {titulo:"Do I Wanna Know?", artista:"Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/doiwannaknow.mp3.mp3.mp3"},
+  {titulo:"I Wanna Be Yours", artista:"Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/arctic.mp3.mp3.mp3"},
+  {titulo:"Hummingbird", artista:"Metro Boomin", img:"imagenes/metro-boomin.jpeg", src:"musica/Hummingbird.mp3.mp3.mp3"},
+  {titulo:"No. 1 Party Anthem", artista:"Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/arctic.mp3.mp3 (2).mp3"},
+  {titulo:"Feel It", artista:"d4vd", img:"imagenes/feel it.jpeg", src:"musica/feelit.mp3.mp3"},
+  {titulo:"Sabor a mí", artista:"Luis Miguel", img:"imagenes/sabor a ti.jpeg", src:"musica/sabor-a-mi.mp3"},
+  {titulo:"Feliz me siento", artista:"Desconocido", img:"imagenes/feliz me siento.jpeg", src:"musica/feliz-me-siento.mp3"},
+  {titulo:"Quiero morir en tu piel", artista:"Desconocido", img:"imagenes/quiero morir en tu piel.jpeg", src:"musica/quiero-morir-en-tu-piel.mp3"},
+  {titulo:"Dónde nadie puede ir", artista:"Desconocido", img:"imagenes/donde nadie puede ir.jpeg", src:"musica/donde-nadie-puede-ir.mp3"},
+  {titulo:"Bésame", artista:"Desconocido", img:"imagenes/besame.jpeg", src:"musica/Besame.mp3"},
+  {titulo:"Congratulations", artista:"Post Malone", img:"imagenes/Congratulations.jpeg", src:"musica/creeping.mp3.mp3.mp3"},
+  {titulo:"Ansiedades", artista:"Desconocido", img:"imagenes/ansiedades.jpeg", src:"musica/ansiedades.mp3"}
 ];
-/* ======================================== */
 
 const $ = id => document.getElementById(id);
 const playlistEl = $('playlist');
@@ -222,20 +216,19 @@ const audio = $('audio');
 
 let currentIndex = 0;
 
-/* formatea tiempo mm:ss */
+/* tiempo mm:ss */
 function fmtTime(sec){
   if(!isFinite(sec)) return '0:00';
   const s = Math.floor(sec % 60), m = Math.floor(sec / 60);
   return `${m}:${s.toString().padStart(2,'0')}`;
 }
 
-/* Renderiza tarjetas usando background-image en .thumb para uniformidad */
+/* Renderiza lista */
 function renderList(){
   playlistEl.innerHTML = '';
   canciones.forEach((c,i) => {
     const card = document.createElement('div');
     card.className = 'card';
-    // thumb div con background-image — garantiza tamaños iguales
     const thumb = document.createElement('div');
     thumb.className = 'thumb';
     thumb.style.backgroundImage = `url("${encodeURI(c.img)}")`;
@@ -253,40 +246,46 @@ function renderList(){
   });
 }
 
-/* Carga pista en el player (sin reproducir) */
+/* Cargar pista */
 function setTrack(index){
   const c = canciones[index];
   if(!c) return;
   currentIndex = index;
   playerTitle.textContent = c.titulo;
-  playerArtist.textContent = c.src.split('/').pop();
+  playerArtist.textContent = c.artista || 'Desconocido';
   playerCover.src = encodeURI(c.img);
   audio.src = encodeURI(c.src);
   audio.load();
 }
 
-/* Carga + reproduce (user action) */
+/* Cargar + reproducir */
 async function loadAndPlay(index){
   setTrack(index);
   try{
     await audio.play();
     playBtn.textContent = '⏸️';
+    playBtn.setAttribute('aria-label','Pausar');
   }catch(err){
-    console.warn('play blocked until user gesture or file missing', err);
+    console.warn('play blocked', err);
   }
 }
 
-/* controles */
+/* Controles */
 playBtn.addEventListener('click', async () => {
   if(!audio.src){
-    // si no hay pista cargada, carga primera pero no forzamos autoplay
     setTrack(0);
     return;
   }
   if(audio.paused){
-    try{ await audio.play(); playBtn.textContent='⏸️'; } catch(e){ console.warn(e); }
+    try{ 
+      await audio.play(); 
+      playBtn.textContent='⏸️'; 
+      playBtn.setAttribute('aria-label','Pausar'); 
+    } catch(e){ console.warn(e); }
   } else {
-    audio.pause(); playBtn.textContent='▶️';
+    audio.pause(); 
+    playBtn.textContent='▶️';
+    playBtn.setAttribute('aria-label','Reproducir');
   }
 });
 prevBtn.addEventListener('click', () => {
@@ -311,13 +310,11 @@ audio.addEventListener('loadedmetadata', () => {
   timeTotal.textContent = fmtTime(audio.duration);
 });
 audio.addEventListener('ended', () => {
-  playBtn.textContent = '▶️';
-  // auto-next but keep player ready
   const i = (currentIndex + 1) % canciones.length;
-  setTrack(i);
+  loadAndPlay(i);
 });
 
-/* click en barra para saltar */
+/* salto en barra */
 progressBar.addEventListener('click', (e) => {
   if(!audio.duration) return;
   const rect = progressBar.getBoundingClientRect();
@@ -331,5 +328,3 @@ setTrack(currentIndex);
 </script>
 </body>
 </html>
-
-
