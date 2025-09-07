@@ -58,13 +58,6 @@ h1{ margin:0 0 18px; color:var(--accent); }
 .meta{ display:flex; flex-direction:column; align-items:flex-start; }
 .meta .title{ font-weight:700; font-size:15px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; max-width:650px; }
 .meta .artist{ font-size:12px; color:var(--muted); }
-.controls{ display:flex; gap:8px; align-items:center; margin-top:8px; }
-.btn{ width:36px; height:36px; border-radius:50%; border:none; background:var(--accent); color:#000; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; }
-.btn:active{ transform:scale(.96); }
-.progress-wrap{ display:flex; align-items:center; gap:8px; margin-top:8px; width:100%; }
-.time{ font-size:12px; color:var(--muted); min-width:40px; text-align:center; }
-.progress-bar{ flex:1; height:6px; background: rgba(255,255,255,0.15); border-radius:6px; position:relative; cursor:pointer; overflow:hidden; }
-.progress-fill{ position:absolute; left:0; top:0; bottom:0; width:0%; background:var(--accent); border-radius:6px; transition:width .08s linear; }
 
 .playlist{
   display:grid;
@@ -164,23 +157,20 @@ h1{ margin:0 0 18px; color:var(--accent); }
   </div>
 
 <script>
-  const canciones 
-  =[
-  {titulo:"Golden Hour - JVKE", img:"imagenes/golden hour.jpeg", src:"musica/golden-hour.mp3.mp3.mp3", video:"videos/golden-hour.mp4"},
-  {titulo:"do-i-wanna - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/doiwannaknow.mp3.mp3.mp3", video:"videos/golden-hour.mp4"},
-  {titulo:"I Wanna Be Yours - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/arctic.mp3.mp3.mp3", video:"videos/golden-hour.mp4"},
-  {titulo:"Hummingbird - Metro Boomin", img:"imagenes/metro-boomin.jpeg", src:"musica/Hummingbird.mp3.mp3.mp3", video:"videos/golden-hour.mp4"},
-  {titulo:"No. 1 Party Anthem - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/arctic.mp3.mp3 (2).mp3", video:"videos/golden-hour.mp4"},
-  {titulo:"Feel It - d4vd", img:"imagenes/feel it.jpeg", src:"musica/feelit.mp3.mp3", video:"videos/golden-hour.mp4"},
-  {titulo:"Sabor a mi - Luis Miguel", img:"imagenes/sabor a ti.jpeg", src:"musica/sabor-a-mi.mp3", video:"videos/golden-hour.mp4"},
-  {titulo:"Feliz me siento", img:"imagenes/feliz me siento.jpeg", src:"musica/feliz-me-siento.mp3", video:"videos/golden-hour.mp4"},
-  {titulo:"Quiero morir en tu piel", img:"imagenes/quiero morir en tu piel.jpeg", src:"musica/quiero-morir-en-tu-piel.mp3", video:"videos/golden-hour.mp4"},
-  {titulo:"Dónde nadie puede ir", img:"imagenes/donde nadie puede ir.jpeg", src:"musica/donde-nadie-puede-ir.mp3", video:"videos/golden-hour.mp4"},
-  {titulo:"Bésame", img:"imagenes/besame.jpeg", src:"musica/Besame.mp3", video:"videos/golden-hour.mp4"},
-  {titulo:"Congratulations", img:"imagenes/Congratulations.jpeg", src:"musica/creeping.mp3.mp3.mp3", video:"videos/golden-hour.mp4"}
-  {titulo:"her", img:"imagenes/her.jpeg", src:"musica/her.mp3", video:"videos/golden-hour.mp4"}
-];
-  
+const canciones = [
+  {titulo:"Golden Hour - JVKE", img:"imagenes/golden hour.jpeg", src:"musica/golden-hour.mp3", video:"videos/golden-hour.mp4"},
+  {titulo:"do-i-wanna - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/doiwannaknow.mp3", video:"videos/doiwannaknow.mp4"},
+  {titulo:"I Wanna Be Yours - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/arctic.mp3", video:"videos/i-wanna-be-yours.mp4"},
+  {titulo:"Hummingbird - Metro Boomin", img:"imagenes/metro-boomin.jpeg", src:"musica/Hummingbird.mp3", video:"videos/hummingbird.mp4"},
+  {titulo:"No. 1 Party Anthem - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/arctic-1party.mp3", video:"videos/no1party.mp4"},
+  {titulo:"Feel It - d4vd", img:"imagenes/feel it.jpeg", src:"musica/feelit.mp3", video:"videos/feelit.mp4"},
+  {titulo:"Sabor a mi - Luis Miguel", img:"imagenes/sabor a ti.jpeg", src:"musica/sabor-a-mi.mp3", video:"videos/saborami.mp4"},
+  {titulo:"Feliz me siento", img:"imagenes/feliz me siento.jpeg", src:"musica/feliz-me-siento.mp3", video:"videos/felizmesiento.mp4"},
+  {titulo:"Quiero morir en tu piel", img:"imagenes/quiero morir en tu piel.jpeg", src:"musica/quiero-morir-en-tu-piel.mp3", video:"videos/quieromorir.mp4"},
+  {titulo:"Dónde nadie puede ir", img:"imagenes/donde nadie puede ir.jpeg", src:"musica/donde-nadie-puede-ir.mp3", video:"videos/dondenadie.mp4"},
+  {titulo:"Bésame", img:"imagenes/besame.jpeg", src:"musica/Besame.mp3", video:"videos/besame.mp4"},
+  {titulo:"Congratulations", img:"imagenes/Congratulations.jpeg", src:"musica/congratulations.mp3", video:"videos/congratulations.mp4"},
+  {titulo:"her", img:"imagenes/her.jpeg", src:"musica/her.mp3", video:"videos/her.mp4"}
 ];
 
 const playlistEl = document.getElementById('playlist');
@@ -223,7 +213,7 @@ function setTrack(index){
   if(!c) return;
   currentIndex = index;
   playerTitle.textContent = c.titulo;
-  playerArtist.textContent = c.artista || 'Desconocido';
+  playerArtist.textContent = c.titulo.split('-')[1]?.trim() || 'Desconocido';
   playerCover.src = encodeURI(c.img);
 
   if (c.video){
@@ -241,6 +231,3 @@ setTrack(currentIndex);
 </script>
 </body>
 </html>
-
-
-
