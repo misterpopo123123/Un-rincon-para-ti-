@@ -158,76 +158,17 @@ h1{ margin:0 0 18px; color:var(--accent); }
 
 <script>
 const canciones = [
-  {titulo:"Golden Hour - JVKE", img:"imagenes/golden hour.jpeg", src:"musica/golden-hour.mp3.mp3.mp3", video:"videos/golden-hour.mp4"},
-  {titulo:"do-i-wanna - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/doiwannaknow.mp3.mp3.mp3", video:"videos/doiwannaknow.mp4"},
-  {titulo:"I Wanna Be Yours - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/arctic.mp3.mp3..mp3", video:"videos/i-wanna-be-yours.mp4"},
-  {titulo:"Hummingbird - Metro Boomin", img:"imagenes/metro-boomin.jpeg", src:"musica/Hummingbird.mp3.mp3.mp3", video:"videos/hummingbird.mp4"},
-  {titulo:"No. 1 Party Anthem - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/arctic-1party.mp3", video:"videos/no1party.mp4"},
-  {titulo:"Feel It - d4vd", img:"imagenes/feel it.jpeg", src:"musica/feelit.mp3", video:"videos/feelit.mp4"},
-  {titulo:"Sabor a mi - Luis Miguel", img:"imagenes/sabor a ti.jpeg", src:"musica/sabor-a-mi.mp3", video:"videos/saborami.mp4"},
-  {titulo:"Feliz me siento", img:"imagenes/feliz me siento.jpeg", src:"musica/feliz-me-siento.mp3", video:"videos/felizmesiento.mp4"},
-  {titulo:"Quiero morir en tu piel", img:"imagenes/quiero morir en tu piel.jpeg", src:"musica/quiero-morir-en-tu-piel.mp3", video:"videos/quieromorir.mp4"},
-  {titulo:"Dónde nadie puede ir", img:"imagenes/donde nadie puede ir.jpeg", src:"musica/donde-nadie-puede-ir.mp3", video:"videos/dondenadie.mp4"},
-  {titulo:"Bésame", img:"imagenes/besame.jpeg", src:"musica/Besame.mp3", video:"videos/besame.mp4"},
-  {titulo:"Congratulations", img:"imagenes/Congratulations.jpeg", src:"musica/congratulations.mp3.mp3.mp3", video:"videos/congratulations.mp4"},
-  {titulo:"her", img:"imagenes/her.jpeg", src:"musica/her.mp3", video:"videos/her.mp4"}
+  {titulo:"Golden Hour - JVKE", img:"imagenes/golden hour.jpeg", src:"musica/golden-hour.mp3.mp3.mp3", video:"https://drive.google.com/uc?export=download&id=1MHMcMJechnkJ4sJ85eNEE1qk5Gcg4KkY"},
+  {titulo:"do-i-wanna - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/doiwannaknow.mp3.mp3.mp3", video:"https://drive.google.com/uc?export=download&id=13jiC9XtXaq0EBwNiAkWZVhmSpKzvZ2zR"},
+  {titulo:"I Wanna Be Yours - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/arctic.mp3.mp3..mp3", video:"https://drive.google.com/uc?export=download&id=1abE37HuQysvKJwBvfBQeB5UR9N2mC9TD"},
+  {titulo:"Hummingbird - Metro Boomin", img:"imagenes/metro-boomin.jpeg", src:"musica/Hummingbird.mp3.mp3.mp3", video:"https://drive.google.com/uc?export=download&id=1awmFcYnnKUL88Znt406fNk48DhHj5KVt"},
+  {titulo:"No. 1 Party Anthem - Arctic Monkeys", img:"imagenes/artic-monkeys.jpeg", src:"musica/arctic-1party.mp3", video:"https://drive.google.com/uc?export=download&id=1gmlepTTE01O1iiL4MNUh7GAAQuwtiIGF"},
+  {titulo:"Feel It - d4vd", img:"imagenes/feel it.jpeg", src:"musica/feelit.mp3", video:"https://drive.google.com/uc?export=download&id=1AyBVuE_OkVfHYD9C616cQWOx--5iRRNu"},
+  {titulo:"Sabor a mi - Luis Miguel", img:"imagenes/sabor a ti.jpeg", src:"musica/sabor-a-mi.mp3", video:"https://drive.google.com/uc?export=download&id=1l3_hfIAGDl83aiG28qj8MgezK38RTjOf"},
+  {titulo:"Feliz me siento", img:"imagenes/feliz me siento.jpeg", src:"musica/feliz-me-siento.mp3", video:"https://drive.google.com/uc?export=download&id=1hf1A9qgQvfP3hZSFsB8OZ_xwjBl4Oqu7"},
+  {titulo:"Dónde nadie puede ir", img:"imagenes/donde nadie puede ir.jpeg", src:"musica/donde-nadie-puede-ir.mp3", video:"https://drive.google.com/uc?export=download&id=1ffdVIexx_n-Y6kKEh_gQjs-HqwRKhgQu"},
+  {titulo:"JVKE - HER", img:"imagenes/her.jpeg", src:"musica/her.mp3", video:"https://drive.google.com/uc?export=download&id=1qNgRr3UIfHCBO4DRSMlN7j_LqpYmAf04"},
+  {titulo:"METRO BOOMIN", img:"imagenes/metro-boomin.jpeg", src:"musica/metroboomin.mp3", video:"https://drive.google.com/uc?export=download&id=1awmFcYnnKUL88Znt406fNk48DhHj5KVt"},
+  {titulo:"NO. 1 PARTY ANTHEM", img:"imagenes/artic-monkeys.jpeg", src:"musica/no1party.mp3", video:"https://drive.google.com/uc?export=download&id=1gmlepTTE01O1iiL4MNUh7GAAQuwtiIGF"},
+  {titulo:"do-i-wanna know.mp4", img:"imagenes/artic-monkeys.jpeg", src:"musica/doiwannaknow.mp3", video:"https://drive.google.com/uc?export=download&id=13jiC9XtXaq0EBwNiAkWZVhmSpKzvZ2zR"}
 ];
-
-const playlistEl = document.getElementById('playlist');
-const playerCover = document.getElementById('playerCover');
-const playerTitle = document.getElementById('playerTitle');
-const playerArtist = document.getElementById('playerArtist');
-const playerVideo = document.getElementById('playerVideo');
-
-let currentIndex = 0;
-
-// Render playlist
-function renderList(){
-  playlistEl.innerHTML = '';
-  canciones.forEach((c,i) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-
-    const thumb = document.createElement('div');
-    thumb.className = 'thumb';
-    const img = document.createElement('img');
-    img.src = encodeURI(c.img);
-    img.alt = c.titulo;
-    thumb.appendChild(img);
-
-    const title = document.createElement('div');
-    title.className = 'title';
-    title.textContent = c.titulo;
-
-    card.appendChild(thumb);
-    card.appendChild(title);
-
-    card.addEventListener('click', () => setTrack(i));
-
-    playlistEl.appendChild(card);
-  });
-}
-
-function setTrack(index){
-  const c = canciones[index];
-  if(!c) return;
-  currentIndex = index;
-  playerTitle.textContent = c.titulo;
-  playerArtist.textContent = c.titulo.split('-')[1]?.trim() || 'Desconocido';
-  playerCover.src = encodeURI(c.img);
-
-  if (c.video){
-    playerVideo.src = encodeURI(c.video);
-    playerVideo.load();
-    // El usuario decide cuándo reproducir con los controles
-  } else {
-    playerVideo.src = "";
-    playerVideo.load();
-  }
-}
-
-renderList();
-setTrack(currentIndex);
-</script>
-</body>
-</html>
